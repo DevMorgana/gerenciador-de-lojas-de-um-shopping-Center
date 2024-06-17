@@ -1,121 +1,79 @@
 package org.example;
 
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Loja loja = null;
-        Produto produto = null;
-        boolean continuar = true;
+        int opcao = 0;
 
-        while (continuar) {
-            System.out.println("Menu:");
-            System.out.println("(1) Criar uma loja");
-            System.out.println("(2) Criar um produto");
-            System.out.println("(3) Sair");
-            System.out.print("Escolha uma opção: ");
-            int opcao = scanner.nextInt();
-            scanner.nextLine();
+        System.out.println("## MENU ##:");
+
+        while (opcao != 3) {
+            System.out.println("\nSelecione a opção desejada:");
+            opcao = Teclado.leInt("(1) Criar uma loja\n(2) Criar um produto\n(3) Sair");
 
             switch (opcao) {
                 case 1:
-                    System.out.print("Nome da loja: ");
-                    String nomeLoja = scanner.nextLine();
+                    System.out.println("\n### Criação de Loja ###");
 
-                    System.out.print("Quantidade de funcionários: ");
-                    int quantidadeFuncionarios = scanner.nextInt();
+                    String nomeLoja = Teclado.leString("Digite o nome da loja: ");
+                    int quantidadeFuncionarios = Teclado.leInt("Digite a quantidade de funcionários: ");
+                    double salarioBaseFuncionario = Teclado.leDouble("Digite o salário base dos funcionários (ou -1 se não houver): ");
+                    int quantMaxProdutos = Teclado.leInt("Digite a quantidade máxima de produtos: ");
 
-                    System.out.print("Salário base dos funcionários: ");
-                    double salarioBase = scanner.nextDouble();
-                    scanner.nextLine();
+                    String rua = Teclado.leString("Digite a rua: ");
+                    String cidade = Teclado.leString("Digite a cidade: ");
+                    String estado = Teclado.leString("Digite o estado: ");
+                    String cep = Teclado.leString("Digite o CEP: ");
+                    String pais = Teclado.leString("Digite o país: ");
+                    String numero = Teclado.leString("Digite o número: ");
+                    String complemento = Teclado.leString("Digite o complemento: ");
+                    Endereco endereco = new Endereco(rua, cidade, estado, pais, cep, numero, complemento);
 
-                    System.out.print("Endereço - Nome da rua: ");
-                    String nomeDaRua = scanner.nextLine();
-
-                    System.out.print("Endereço - Cidade: ");
-                    String cidade = scanner.nextLine();
-
-                    System.out.print("Endereço - Estado: ");
-                    String estado = scanner.nextLine();
-
-                    System.out.print("Endereço - País: ");
-                    String pais = scanner.nextLine();
-
-                    System.out.print("Endereço - CEP: ");
-                    String cep = scanner.nextLine();
-
-                    System.out.print("Endereço - Número: ");
-                    String numero = scanner.nextLine();
-
-                    System.out.print("Endereço - Complemento: ");
-                    String complemento = scanner.nextLine();
-
-                    Endereco endereco = new Endereco(nomeDaRua, cidade, estado, pais, cep, numero, complemento);
-
-                    System.out.print("Data de fundação - Dia: ");
-                    int diaFundacao = scanner.nextInt();
-
-                    System.out.print("Data de fundação - Mês: ");
-                    int mesFundacao = scanner.nextInt();
-
-                    System.out.print("Data de fundação - Ano: ");
-                    int anoFundacao = scanner.nextInt();
-                    scanner.nextLine();
-
+                    int diaFundacao = Teclado.leInt("Digite o dia de fundação: ");
+                    int mesFundacao = Teclado.leInt("Digite o mês de fundação: ");
+                    int anoFundacao = Teclado.leInt("Digite o ano de fundação: ");
                     Data dataFundacao = new Data(diaFundacao, mesFundacao, anoFundacao);
 
-                    loja = new Loja(nomeLoja, quantidadeFuncionarios, salarioBase, endereco, dataFundacao);
+                    Loja loja = new Loja(nomeLoja, quantidadeFuncionarios, salarioBaseFuncionario, endereco, dataFundacao, quantMaxProdutos);
+
+                    System.out.println("\nLoja criada com sucesso!");
+                    System.out.println(loja);
+
                     break;
 
                 case 2:
-                    System.out.print("Nome do produto: ");
-                    String nomeProduto = scanner.nextLine();
+                    System.out.println("\n### Criação de Produto ###");
 
-                    System.out.print("Preço do produto: ");
-                    double precoProduto = scanner.nextDouble();
-                    scanner.nextLine();
+                    String nomeProduto = Teclado.leString("Digite o nome do produto: ");
+                    double precoProduto = Teclado.leDouble("Digite o preço do produto: ");
 
-                    System.out.print("Data de validade - Dia: ");
-                    int diaValidade = scanner.nextInt();
-
-                    System.out.print("Data de validade - Mês: ");
-                    int mesValidade = scanner.nextInt();
-
-                    System.out.print("Data de validade - Ano: ");
-                    int anoValidade = scanner.nextInt();
-                    scanner.nextLine();
-
+                    int diaValidade = Teclado.leInt("Digite o dia de validade: ");
+                    int mesValidade = Teclado.leInt("Digite o mês de validade: ");
+                    int anoValidade = Teclado.leInt("Digite o ano de validade: ");
                     Data dataValidade = new Data(diaValidade, mesValidade, anoValidade);
 
-                    produto = new Produto(nomeProduto, precoProduto, dataValidade);
+                    Produto produto = new Produto(nomeProduto, precoProduto, dataValidade);
+
+                    System.out.println("\nProduto criado com sucesso!");
+                    System.out.println(produto);
+
+                    Data dataAtual = new Data(20, 10, 2023);
+                    if (produto.estaVencido(dataAtual)) {
+                        System.out.println("\nPRODUTO VENCIDO");
+                    } else {
+                        System.out.println("\nPRODUTO NÃO VENCIDO");
+                    }
+
                     break;
 
                 case 3:
-                    continuar = false;
+                    System.out.println("Saindo...");
                     break;
 
                 default:
-                    System.out.println("Opção inválida");
+                    System.out.println("Opção inválida. Tente novamente.");
                     break;
             }
-
-            if (produto != null) {
-                Data dataReferencia = new Data(20, 10, 2023);
-                if (produto.estaVencido(dataReferencia)) {
-                    System.out.println("PRODUTO VENCIDO");
-                } else {
-                    System.out.println("PRODUTO NÃO VENCIDO");
-                }
-                produto = null;
-            }
-
-            if (loja != null) {
-                System.out.println(loja);
-                loja = null;
-            }
         }
-
-        scanner.close();
     }
 }

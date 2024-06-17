@@ -1,9 +1,7 @@
 package org.example;
 
 public class Data {
-    private int dia;
-    private int mes;
-    private int ano;
+    private int dia, mes, ano;
 
     public Data(int dia, int mes, int ano) {
         if (isDataValida(dia, mes, ano)) {
@@ -67,4 +65,3 @@ public class Data {
         return dia > 0 && dia <= diasNoMes[mes - 1];
     }
 }
-

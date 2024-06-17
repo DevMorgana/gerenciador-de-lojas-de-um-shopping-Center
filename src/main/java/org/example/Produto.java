@@ -11,45 +11,48 @@ public class Produto {
         this.dataValidade = dataValidade;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public double getPreco() {
-        return preco;
     }
 
     public void setPreco(double preco) {
         this.preco = preco;
     }
 
-    public Data getDataValidade() {
-        return dataValidade;
-    }
-
     public void setDataValidade(Data dataValidade) {
         this.dataValidade = dataValidade;
     }
 
-    @Override
-    public String toString() {
-        return "Produto [nome=" + nome + ", preco=" + preco + ", dataValidade=" + dataValidade + "]";
+    public String getNome() {
+        return nome;
     }
 
-    public boolean estaVencido(Data data) {
-        if (this.dataValidade.getAno() < data.getAno()) {
-            return true;
-        } else if (this.dataValidade.getAno() == data.getAno()) {
-            if (this.dataValidade.getMes() < data.getMes()) {
-                return true;
-            } else if (this.dataValidade.getMes() == data.getMes()) {
-                return this.dataValidade.getDia() < data.getDia();
+    public double getPreco() {
+        return preco;
+    }
+
+    public Data getDataValidade() {
+        return dataValidade;
+    }
+
+    public boolean estaVencido(Data dataRecebida) {
+        if (dataRecebida.getAno() < dataValidade.getAno()) {
+            return false;
+        } else if (dataRecebida.getAno() == dataValidade.getAno()) {
+            if (dataRecebida.getMes() < dataValidade.getMes()) {
+                return false;
+            } else if (dataRecebida.getMes() == dataValidade.getMes()) {
+                return dataRecebida.getDia() > dataValidade.getDia();
             }
         }
-        return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Informações do Produto:\n" +
+                "Nome do produto: " + nome + "\n" +
+                "Preço do produto: " + preco + "\n" +
+                "Data de Validade: " + dataValidade;
     }
 }

@@ -3,8 +3,13 @@ package org.example;
 public class Vestuario extends Loja {
     private boolean produtosImportados;
 
-    public Vestuario(String nome, int quantidadeFuncionarios, double salarioBaseFuncionario, Endereco endereco, Data dataFundacao, boolean produtosImportados) {
-        super(nome, quantidadeFuncionarios, salarioBaseFuncionario, endereco, dataFundacao);
+    public Vestuario(String nome, int quantidadeFuncionarios, double salarioBaseFuncionario, Endereco endereco, Data dataFundacao, boolean produtosImportados, int quantMaxProdutos) {
+        super(nome, quantidadeFuncionarios, salarioBaseFuncionario, endereco, dataFundacao, quantMaxProdutos);
+        this.produtosImportados = produtosImportados;
+    }
+
+    public Vestuario(String nome, int quantidadeFuncionarios, Endereco endereco, Data dataFundacao, int quantMaxProdutos, boolean produtosImportados) {
+        super(nome, quantidadeFuncionarios, endereco, dataFundacao, quantMaxProdutos);
         this.produtosImportados = produtosImportados;
     }
 
@@ -18,6 +23,6 @@ public class Vestuario extends Loja {
 
     @Override
     public String toString() {
-        return super.toString() + ", produtosImportados=" + produtosImportados + "]";
+        return super.toString() + "\nProduto Importado: " + produtosImportados;
     }
 }
